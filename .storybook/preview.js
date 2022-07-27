@@ -1,3 +1,4 @@
+import 'destyle.css';
 import { initialize, mswDecorator } from "msw-storybook-addon";
 
 initialize();

@@ -1,3 +1,4 @@
+const path = require("path");
 module.exports = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
   addons: [
@@ -10,4 +11,16 @@ module.exports = {
     builder: "@storybook/builder-webpack5",
   },
   staticDirs: ["../public"],
+  webpackFinal: async (config) => {
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          "@/styles": path.resolve(__dirname, "../src/styles"),
+        },
+      },
+    };
+  },
 };

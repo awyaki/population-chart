@@ -6,7 +6,7 @@ export const getAllPrefectures = async () => {
   if (API_KEY === undefined) throw new Error("API_KEY is undefined.");
 
   return await axios.get<RESASPrefectures>(
-    "https://opendata.resas-portal.go.jp/pi/v1/prefectures",
+    "https://opendata.resas-portal.go.jp/api/v1/prefectures",
     {
       headers: {
         "X-API-KEY": API_KEY,

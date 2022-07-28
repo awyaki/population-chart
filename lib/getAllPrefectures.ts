@@ -1,9 +1,5 @@
 import axios from "axios";
-
-type RESASPrefectures = {
-  message: null;
-  result: { prefCode: number; prefName: string }[];
-};
+import { RESASPrefectures } from "@/types";
 
 export const getAllPrefectures = async () => {
   const API_KEY = process.env.RESAS_API_KEY;

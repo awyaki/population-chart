@@ -26,7 +26,7 @@ export const LineChart: FC<LineChartProps> = ({
     () =>
       data
         .map(({ name, points }) => points.map(({ x, y }) => ({ x, [name]: y })))
-        .reduce((acc, cur) => zip(acc, cur)),
+        .reduce((acc, cur) => zip(acc, cur), [[]]),
     [data]
   );
 

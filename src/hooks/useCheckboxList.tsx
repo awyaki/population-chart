@@ -27,8 +27,8 @@ export const useCheckboxList = (
         };
       }
     );
-    return <CheckboxList title="都道府県" data={data} />;
-  }, [checkedIds, prefectures]);
+    return <CheckboxList title="都道府県" data={data} onClick={handleClick} />;
+  }, [checkedIds, prefectures, handleClick]);
 
   return [checkedIds, renderCheckboxListForPrefectures];
 };

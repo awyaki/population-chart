@@ -18,3 +18,9 @@ export type Prefecture = {
   id: number;
   name: string;
 };
+
+export type Population = {
+  prefCode: number;
+  prefName: string;
+  data: { year: number; value: number }[];
+}[];

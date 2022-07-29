@@ -23,4 +23,4 @@ export type Population = {
   prefCode: number;
   prefName: string;
   data: { year: number; value: number }[];
-}[];
+};

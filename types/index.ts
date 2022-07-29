@@ -13,3 +13,8 @@ export type RESASPopulation = {
     }[];
   };
 };
+
+export type Prefectures = {
+  id: number;
+  name: string;
+}[];

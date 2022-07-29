@@ -18,12 +18,12 @@ export const useCheckboxList = (
 
   const renderCheckboxListForPrefectures = useCallback(() => {
     const data: ComponentProps<typeof CheckboxList>["data"] = prefectures.map(
-      ({ id, name }) => {
-        const isChecked = checkedIds.includes(id);
+      ({ prefCode, prefName }) => {
+        const isChecked = checkedIds.includes(prefCode);
         return {
-          id,
+          id: prefCode,
           isChecked,
-          value: name,
+          value: prefName,
         };
       }
     );

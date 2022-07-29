@@ -4,7 +4,7 @@ import { CheckBox } from "./components";
 
 type CheckboxListProps = {
   title: string;
-  data: { id: string; isChecked: boolean; value: string }[];
+  data: { id: number; isChecked: boolean; value: string }[];
 };
 
 export const CheckboxList: FC<CheckboxListProps> = ({ title, data }) => {

@@ -14,7 +14,7 @@ export type RESASPopulation = {
   };
 };
 
-export type Prefectures = {
+export type Prefecture = {
   id: number;
   name: string;
-}[];
+};

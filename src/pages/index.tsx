@@ -1,14 +1,14 @@
 import type { NextPage, GetStaticProps } from "next";
-import { Prefectures } from "@/types";
+import { Prefecture } from "@/types";
 import { useCheckboxList } from "@/hooks";
 import { getAllPrefectures } from "@/lib";
 
 type HomePageProps = {
-  prefectures: Prefectures;
+  prefectures: Prefecture[];
 };
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const prefs: Prefectures = (await getAllPrefectures()).data.result.map(
+  const prefs: Prefecture[] = (await getAllPrefectures()).data.result.map(
     ({ prefCode, prefName }) => ({ id: prefCode, name: prefName })
   );
 

@@ -1,9 +1,9 @@
 import { useState, ComponentProps, useCallback } from "react";
 import { CheckboxList } from "@/components";
-import { Prefectures } from "@/types";
+import { Prefecture } from "@/types";
 
 export const useCheckboxList = (
-  prefectures: Prefectures
+  prefectures: Prefecture[]
 ): [number[], () => JSX.Element] => {
   const [checkedIds, setCheckedIds] = useState<number[]>([]);
 

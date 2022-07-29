@@ -22,6 +22,7 @@ module.exports = {
           "@/components": path.resolve(__dirname, "../src/components"),
           "@/lib": path.resolve(__dirname, "../lib"),
           "@/types": path.resolve(__dirname, "../types"),
+          "@/hooks": path.resolve(__dirname, "../src/hooks"),
         },
       },
     };

@@ -7,11 +7,24 @@ export const getPopulation = async (
   const API_KEY = process.env.RESAS_API_KEY;
   if (API_KEY === undefined) throw new Error("API_KEY is undefined.");
 
-  const res = await Promise.all(
-    prefs.map(({ prefCode, prefName }) =>
-      fetchPopulation(prefCode, API_KEY).then(({ data }) =>
-        convertDataToFrontend(prefCode, prefName, data)
-      )
+  const throttleTime = 250; // RESAS_API allow to throw 5 queries per second at most.
+  const res = Promise.all(
+    await prefs.reduce(
+      (promise, { prefCode, prefName }) =>
+        promise.then((acc) => {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(
+                acc.concat(
+                  fetchPopulation(prefCode, API_KEY).then((data) =>
+                    convertDataToFrontend(prefCode, prefName, data.data)
+                  )
+                )
+              );
+            }, throttleTime);
+          });
+        }),
+      Promise.resolve<Promise<Population>[]>([])
     )
   );
 

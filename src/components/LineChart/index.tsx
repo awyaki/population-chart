@@ -10,8 +10,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+type DataForLineChart = { name: string; points: { x: number; y: number }[] }[];
 type LineChartProps = {
-  data: { name: string; points: { x: number; y: number }[] }[];
+  data: DataForLineChart;
   XAxisLabel: string;
   YAxisLabel: string;
 };
@@ -22,13 +23,12 @@ export const LineChart: FC<LineChartProps> = ({
   XAxisLabel,
   YAxisLabel,
 }) => {
-  const convertedData = useMemo(
-    () =>
-      data
-        .map(({ name, points }) => points.map(({ x, y }) => ({ x, [name]: y })))
-        .reduce((acc, cur) => zip(acc, cur), [[]]),
-    [data]
-  );
+  const convertedData = useMemo(() => {
+    if (data.length === 0) return [];
+    if (data.length === 1) return convert(data).flatMap((d) => d);
+    // Assertion: `data` array must have at least two element, so initial value of reduce method can be removed.
+    return convert(data).reduce((acc, cur) => zip(acc, cur));
+  }, [data]);
 
   return (
     <ResponsiveContainer>
@@ -58,6 +58,13 @@ export const LineChart: FC<LineChartProps> = ({
     </ResponsiveContainer>
   );
 };
+
+/*
+ * convert data for Recharts' LineChart component
+ * */
+
+const convert = (data: DataForLineChart) =>
+  data.map(({ name, points }) => points.map(({ x, y }) => ({ x, [name]: y })));
 
 /*
  * Use the zip function to make a new array that each element is

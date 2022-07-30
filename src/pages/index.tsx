@@ -1,6 +1,6 @@
 import type { NextPage, GetStaticProps } from "next";
 import { Prefecture, Population } from "@/types";
-import { useCheckboxList } from "@/hooks";
+import { useCheckboxList, useLineChart } from "@/hooks";
 import { getAllPrefectures, getPopulation } from "@/lib";
 
 type HomePageProps = {
@@ -19,9 +19,15 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   };
 };
 
-const Home: NextPage<HomePageProps> = ({ prefectures }) => {
+const Home: NextPage<HomePageProps> = ({ prefectures, allPopulation }) => {
   const [checkedIds, renderCheckboxList] = useCheckboxList(prefectures);
-  return <>{renderCheckboxList()}</>;
+  const renderLineChart = useLineChart(allPopulation, checkedIds);
+  return (
+    <>
+      {renderCheckboxList()}
+      <div style={{ height: "90vh" }}>{renderLineChart()}</div>
+    </>
+  );
 };
 
 export default Home;

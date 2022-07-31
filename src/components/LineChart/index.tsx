@@ -26,21 +26,28 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
 
   return (
     <AutoSizer>
-      {({ width, height }) => (
+      {({ width }) => (
         <RechartsLineChart
           width={width}
-          height={height}
+          height={width * (3 / 4)}
           data={convertedData}
           margin={{
-            top: 5,
-            right: 30,
-            left: 20,
+            top: 35,
+            right: 75,
+            left: 0,
             bottom: 5,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="x" label="（年度）" />
-          <YAxis label="（万人）" />
+          <XAxis
+            dataKey="x"
+            label={{ value: "（年度）", position: "right", offset: 17 }}
+            tick={data.length !== 0}
+          />
+          <YAxis
+            tickFormatter={tickFormatter}
+            label={{ value: "（万人）", position: "top", offset: 17 }}
+          />
           <Tooltip />
           <Legend />
           {data.map(({ name }) => (
@@ -56,6 +63,8 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
     </AutoSizer>
   );
 };
+
+const tickFormatter = (value: number): string => String(value / 10_000);
 
 /*
  * convert data for Recharts' LineChart component

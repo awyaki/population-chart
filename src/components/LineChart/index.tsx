@@ -13,16 +13,10 @@ import {
 type DataForLineChart = { name: string; points: { x: number; y: number }[] }[];
 type LineChartProps = {
   data: DataForLineChart;
-  XAxisLabel: string;
-  YAxisLabel: string;
 };
 
 // TODO: add ErrorBoundary
-export const LineChart: FC<LineChartProps> = ({
-  data,
-  XAxisLabel,
-  YAxisLabel,
-}) => {
+export const LineChart: FC<LineChartProps> = ({ data }) => {
   const convertedData = useMemo(() => {
     if (data.length === 0) return [];
     if (data.length === 1) return convert(data).flatMap((d) => d);
@@ -42,8 +36,8 @@ export const LineChart: FC<LineChartProps> = ({
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="x" label={XAxisLabel} />
-        <YAxis label={YAxisLabel} />
+        <XAxis dataKey="x" label="（年度）" />
+        <YAxis label="（万人）" />
         <Tooltip />
         <Legend />
         {data.map(({ name }) => (

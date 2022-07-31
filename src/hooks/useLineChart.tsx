@@ -7,13 +7,7 @@ export const useLineChart = (
   checkedIds: number[]
 ) => {
   const renderLineChart = useCallback(
-    () => (
-      <LineChart
-        XAxisLabel="年度"
-        YAxisLabel="人口数"
-        data={convertToLinChart(allPopulation, checkedIds)}
-      />
-    ),
+    () => <LineChart data={convertToLinChart(allPopulation, checkedIds)} />,
     [allPopulation, checkedIds]
   );
   return renderLineChart;

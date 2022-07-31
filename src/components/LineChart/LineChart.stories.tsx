@@ -10,8 +10,6 @@ export default {
 
 export const PopulationOfPrefectures: ComponentStoryObj<typeof LineChart> = {
   args: {
-    XAxisLabel: "年",
-    YAxisLabel: "人口",
     data: [
       {
         name: "東京都",

@@ -7,8 +7,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
 } from "recharts";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 type DataForLineChart = { name: string; points: { x: number; y: number }[] }[];
 type LineChartProps = {
@@ -25,31 +25,35 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <ResponsiveContainer>
-      <RechartsLineChart
-        data={convertedData}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="x" label="（年度）" />
-        <YAxis label="（万人）" />
-        <Tooltip />
-        <Legend />
-        {data.map(({ name }) => (
-          <Line
-            key={name}
-            dataKey={name}
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
-          />
-        ))}
-      </RechartsLineChart>
-    </ResponsiveContainer>
+    <AutoSizer>
+      {({ width, height }) => (
+        <RechartsLineChart
+          width={width}
+          height={height}
+          data={convertedData}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="x" label="（年度）" />
+          <YAxis label="（万人）" />
+          <Tooltip />
+          <Legend />
+          {data.map(({ name }) => (
+            <Line
+              key={name}
+              dataKey={name}
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
+          ))}
+        </RechartsLineChart>
+      )}
+    </AutoSizer>
   );
 };
 

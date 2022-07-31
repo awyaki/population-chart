@@ -15,7 +15,7 @@ export const CheckboxList: FC<CheckboxListProps> = ({
 }) => {
   return (
     <Fieldset>
-      <legend>{title}</legend>
+      <Legend>{title}</Legend>
       {data.map(({ id, isChecked, value }) => (
         <div key={value}>
           <CheckBox
@@ -28,6 +28,11 @@ export const CheckboxList: FC<CheckboxListProps> = ({
     </Fieldset>
   );
 };
+
+const Legend = styled("legend", {
+  fontSize: "$md",
+  marginBottom: "1rem",
+});
 
 const Fieldset = styled("fieldset", {
   display: "flex",

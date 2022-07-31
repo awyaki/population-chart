@@ -1,5 +1,5 @@
 import { FC } from "react";
-
+import { styled } from "@/styles";
 import { CheckBox } from "./components";
 
 type CheckboxListProps = {
@@ -14,16 +14,27 @@ export const CheckboxList: FC<CheckboxListProps> = ({
   data,
 }) => {
   return (
-    <fieldset>
+    <Fieldset>
       <legend>{title}</legend>
       {data.map(({ id, isChecked, value }) => (
-        <CheckBox
-          key={value}
-          isChecked={isChecked}
-          value={value}
-          onClick={() => onClick(id)}
-        />
+        <div key={value}>
+          <CheckBox
+            isChecked={isChecked}
+            value={value}
+            onClick={() => onClick(id)}
+          />
+        </div>
       ))}
-    </fieldset>
+    </Fieldset>
   );
 };
+
+const Fieldset = styled("fieldset", {
+  display: "flex",
+  flexWrap: "wrap",
+  marginBottom: "-.8rem",
+  "> div": {
+    marginRight: ".8rem",
+    marginBottom: ".8rem",
+  },
+});

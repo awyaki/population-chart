@@ -9,6 +9,7 @@ import {
   Legend,
 } from "recharts";
 import AutoSizer from "react-virtualized-auto-sizer";
+import { styled } from "@/styles";
 
 type DataForLineChart = { name: string; points: { x: number; y: number }[] }[];
 type LineChartProps = {
@@ -25,44 +26,48 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <AutoSizer>
-      {({ width }) => (
-        <RechartsLineChart
-          width={width}
-          height={width * (3 / 4)}
-          data={convertedData}
-          margin={{
-            top: 35,
-            right: 75,
-            left: 0,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="x"
-            label={{ value: "（年度）", position: "right", offset: 17 }}
-            tick={data.length !== 0}
-          />
-          <YAxis
-            tickFormatter={tickFormatter}
-            label={{ value: "（万人）", position: "top", offset: 17 }}
-          />
-          <Tooltip />
-          <Legend />
-          {data.map(({ name }) => (
-            <Line
-              key={name}
-              dataKey={name}
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
+    <Container>
+      <AutoSizer>
+        {({ width }) => (
+          <RechartsLineChart
+            width={width}
+            height={width * (3 / 4)}
+            data={convertedData}
+            margin={{
+              top: 35,
+              right: 75,
+              left: 0,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="x"
+              label={{ value: "（年度）", position: "right", offset: 17 }}
+              tick={data.length !== 0}
             />
-          ))}
-        </RechartsLineChart>
-      )}
-    </AutoSizer>
+            <YAxis
+              tickFormatter={tickFormatter}
+              label={{ value: "（万人）", position: "top", offset: 17 }}
+            />
+            <Tooltip />
+            <Legend />
+            {data.map(({ name }) => (
+              <Line
+                key={name}
+                dataKey={name}
+                stroke="#8884d8"
+                activeDot={{ r: 8 }}
+              />
+            ))}
+          </RechartsLineChart>
+        )}
+      </AutoSizer>
+    </Container>
   );
 };
+
+const Container = styled("div", { height: "1px" });
 
 const tickFormatter = (value: number): string => String(value / 10_000);
 

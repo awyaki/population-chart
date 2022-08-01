@@ -3,6 +3,7 @@ import { Prefecture, Population } from "@/types";
 import { useCheckboxList, useLineChart } from "@/hooks";
 import { getAllPrefectures, getPopulation } from "@/lib";
 import { ErrorBoundary, ErrorFallback } from "@/components";
+import { styled } from "@/styles";
 
 type HomePageProps = {
   prefectures: Prefecture[];
@@ -24,13 +25,26 @@ const Home: NextPage<HomePageProps> = ({ prefectures, allPopulation }) => {
   const [checkedIds, renderCheckboxList] = useCheckboxList(prefectures);
   const renderLineChart = useLineChart(allPopulation, checkedIds);
   return (
-    <>
+    <Container>
       <ErrorBoundary fallback={<ErrorFallback />}>
-        {renderCheckboxList()}
-        <div style={{ height: "90vh" }}>{renderLineChart()}</div>
+        <div>{renderCheckboxList()}</div>
+        <div>{renderLineChart()}</div>
       </ErrorBoundary>
-    </>
+    </Container>
   );
 };
 
 export default Home;
+
+const Container = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "3rem",
+  "@md": {
+    flexDirection: "row",
+    "> div": {
+      width: "50%",
+    },
+    gap: 0,
+  },
+});

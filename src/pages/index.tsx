@@ -2,7 +2,7 @@ import type { NextPage, GetStaticProps } from "next";
 import { Prefecture, Population } from "@/types";
 import { useCheckboxList, useLineChart } from "@/hooks";
 import { getAllPrefectures, getPopulation } from "@/lib";
-import { ErrorBoundary, ErrorFallback } from "@/components";
+import { Header, ErrorBoundary, ErrorFallback } from "@/components";
 import { PageLayout } from "@/layouts";
 import { styled } from "@/styles";
 
@@ -27,19 +27,30 @@ const Home: NextPage<HomePageProps> = ({ prefectures, allPopulation }) => {
   const renderLineChart = useLineChart(allPopulation, checkedIds);
   return (
     <PageLayout>
-      <Container>
-        <ErrorBoundary fallback={<ErrorFallback />}>
-          <div>{renderCheckboxList()}</div>
-          <div>{renderLineChart()}</div>
-        </ErrorBoundary>
-      </Container>
+      <Main>
+        <div className="header">
+          <Header title="都道府県別人口推移グラフ" />
+        </div>
+        <Flex>
+          <ErrorBoundary fallback={<ErrorFallback />}>
+            <div>{renderCheckboxList()}</div>
+            <div>{renderLineChart()}</div>
+          </ErrorBoundary>
+        </Flex>
+      </Main>
     </PageLayout>
   );
 };
 
 export default Home;
 
-const Container = styled("div", {
+const Main = styled("main", {
+  "> .header": {
+    marginBottom: "2rem",
+  },
+});
+
+const Flex = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "3rem",

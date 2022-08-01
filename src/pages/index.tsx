@@ -54,7 +54,7 @@ const Flex = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "3rem",
-  "@md": {
+  "@lg": {
     flexDirection: "row",
     "> div": {
       width: "50%",

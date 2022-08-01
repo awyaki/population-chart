@@ -48,7 +48,7 @@ const convertDataToFrontend = (
 ): Population => {
   const targetLabel = "総人口";
   const resultData = fetchedData.result.data;
-
+  const boundaryYear = fetchedData.result.boundaryYear;
   const isExistTargetLabel = resultData.some(
     ({ label }) => label === targetLabel
   );
@@ -59,13 +59,15 @@ const convertDataToFrontend = (
     );
 
   const totalPopulationPerPrefecture = (() => {
-    const filtered = fetchedData.result.data.filter(
+    const filteredbyLabel = fetchedData.result.data.filter(
       ({ label }) => label === targetLabel
     );
     // `filtered[0]` is always exist becuase of a test of `isExistTargetLabel`,
     // so this code is safe.
-    const res = filtered[0].data.map(({ year, value }) => ({ year, value }));
-    return res;
+    const filteredByBoundaryYear = filteredbyLabel[0].data.filter(
+      ({ year }) => year <= boundaryYear
+    );
+    return filteredByBoundaryYear;
   })();
 
   return { prefCode, prefName, data: totalPopulationPerPrefecture };

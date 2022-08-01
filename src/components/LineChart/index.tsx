@@ -16,7 +16,6 @@ type LineChartProps = {
   data: DataForLineChart;
 };
 
-// TODO: add ErrorBoundary
 export const LineChart: FC<LineChartProps> = ({ data }) => {
   const convertedData = useMemo(() => {
     if (data.length === 0) return [];

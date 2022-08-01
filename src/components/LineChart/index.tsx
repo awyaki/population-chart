@@ -19,7 +19,7 @@ type LineChartProps = {
 export const LineChart: FC<LineChartProps> = ({ data }) => {
   const convertedData = useMemo(() => {
     if (data.length === 0) return [];
-    if (data.length === 1) return convert(data).flatMap((d) => d);
+    if (data.length === 1) return convert(data).flat();
     // Assertion: `data` array must have at least two element, so initial value of reduce method can be removed.
     return convert(data).reduce((acc, cur) => zip(acc, cur));
   }, [data]);

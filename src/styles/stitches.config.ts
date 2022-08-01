@@ -18,10 +18,10 @@ export const {
   },
   theme: {
     fontSizes: {
-      sm: "clamp(1rem, 0.75rem + 1.5vw, 1.2rem)",
-      md: "clamp(1.2rem, 1.05rem + 1.5vw, 1.4rem)",
-      lg: "clamp(1.4rem, 1.25rem + 1.5vw, 1.6rem)",
-      xl: "clamp(1.6rem, 1.45rem + 1.5vw, 1.8rem)",
+      sm: "calc(1rem + .5vw)",
+      md: "calc(1.2rem + .5vw)",
+      lg: "calc(1.4rem + .5vw)",
+      xl: "calc(1.6rem + .5vw)",
     },
   },
 });

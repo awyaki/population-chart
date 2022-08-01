@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts";
 import AutoSizer from "react-virtualized-auto-sizer";
-import { styled } from "@/styles";
+import { styled, colors } from "@/styles";
 
 type DataForLineChart = { name: string; points: { x: number; y: number }[] }[];
 type LineChartProps = {
@@ -58,11 +58,11 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
               formatter={toolTipFormatter}
             />
             <Legend />
-            {data.map(({ name }) => (
+            {data.map(({ name }, i) => (
               <Line
                 key={name}
                 dataKey={name}
-                stroke="#8884d8"
+                stroke={pickStrokeColor(i)}
                 activeDot={{ r: 8 }}
               />
             ))}
@@ -74,6 +74,12 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
 };
 
 const Container = styled("div", { height: "1px" });
+
+const pickStrokeColor = (index: number): string => {
+  const colorsValues = Object.values(colors.accent);
+  const length = colorsValues.length;
+  return colorsValues[index % length];
+};
 
 const toolTipFormatter = (value: number): string => {
   const formatted = Intl.NumberFormat().format(value);

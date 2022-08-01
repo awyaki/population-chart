@@ -1,11 +1,10 @@
 import axios from "axios";
-import { RESASPrefectures } from "@/types";
+import { RESASPrefectures, Prefecture } from "@/types";
 
-export const getAllPrefectures = async () => {
+export const getAllPrefectures = async (): Promise<Prefecture[]> => {
   const API_KEY = process.env.RESAS_API_KEY;
   if (API_KEY === undefined) throw new Error("API_KEY is undefined.");
-
-  return await axios.get<RESASPrefectures>(
+  const data = await axios.get<RESASPrefectures>(
     "https://opendata.resas-portal.go.jp/api/v1/prefectures",
     {
       headers: {
@@ -14,4 +13,6 @@ export const getAllPrefectures = async () => {
       },
     }
   );
+
+  return data.data.result;
 };

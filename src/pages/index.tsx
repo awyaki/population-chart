@@ -12,7 +12,7 @@ type HomePageProps = {
 };
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const prefs = (await getAllPrefectures()).data.result;
+  const prefs = await getAllPrefectures();
   const allPopulation = await getPopulation(prefs);
   return {
     props: {

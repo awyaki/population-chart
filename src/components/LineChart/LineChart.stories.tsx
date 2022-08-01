@@ -5,7 +5,6 @@ import { LineChart } from "./";
 export default {
   title: "LineChart",
   component: LineChart,
-  decorators: [(story) => <div style={{ height: "100vh" }}>{story()}</div>],
 } as ComponentMeta<typeof LineChart>;
 
 export const PopulationOfPrefectures: ComponentStoryObj<typeof LineChart> = {
@@ -14,58 +13,33 @@ export const PopulationOfPrefectures: ComponentStoryObj<typeof LineChart> = {
       {
         name: "東京都",
         points: [
-          { x: 1, y: 2 },
-          { x: 2, y: 4 },
-          { x: 3, y: 8 },
-          { x: 4, y: 2 },
-          { x: 5, y: 2 },
+          { x: 1900, y: 1000000 },
+          { x: 1905, y: 2000000 },
+          { x: 1910, y: 5000000 },
+          { x: 1915, y: 3000000 },
+          { x: 1920, y: 1000000 },
         ],
       },
       {
         name: "大阪府",
         points: [
-          { x: 1, y: 9 },
-          { x: 2, y: 3 },
-          { x: 3, y: 10 },
-          { x: 4, y: 7 },
-          { x: 5, y: 6 },
+          { x: 1900, y: 2000000 },
+          { x: 1905, y: 2000000 },
+          { x: 1910, y: 6000000 },
+          { x: 1915, y: 300000 },
+          { x: 1920, y: 600000 },
         ],
       },
       {
         name: "兵庫県",
         points: [
-          { x: 1, y: 29 },
-          { x: 2, y: 7 },
-          { x: 3, y: 8 },
-          { x: 4, y: 10 },
-          { x: 5, y: 18 },
+          { x: 1900, y: 3000000 },
+          { x: 1905, y: 220000 },
+          { x: 1910, y: 650000 },
+          { x: 1915, y: 300000 },
+          { x: 1920, y: 1000000 },
         ],
       },
     ],
   },
 };
-/*
-
-export const PopulationOfPrefectures: ComponentStoryObj<typeof LineChart> = {
-  args: {
-    XAxisLabel: "年",
-    YAxisLabel: "人口",
-    data: [
-      {
-        name: "東京都",
-        points: [
-          { x: 10, y: 10 },
-          { x: 20, y: 30 },
-        ],
-      },
-      {
-        name: "大阪府",
-        points: [
-          { x: 10, y: 10 },
-          { x: 20, y: 30 },
-        ],
-      },
-    ],
-  },
-};
-*/

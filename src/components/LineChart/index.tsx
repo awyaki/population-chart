@@ -35,15 +35,19 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
             data={convertedData}
             margin={{
               top: 35,
-              right: 75,
+              right: 0,
               left: 0,
-              bottom: 5,
+              bottom: 12,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="x"
-              label={{ value: "（年度）", position: "right", offset: 17 }}
+              label={{
+                value: "（年度）",
+                position: "insideBottomRight",
+                offset: -10,
+              }}
               tick={data.length !== 0}
             />
             <YAxis

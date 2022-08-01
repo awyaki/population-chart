@@ -54,7 +54,10 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
               tickFormatter={tickFormatter}
               label={{ value: "（万人）", position: "top", offset: 17 }}
             />
-            <Tooltip />
+            <Tooltip
+              labelFormatter={(value) => `${value}年`}
+              formatter={toolTipFormatter}
+            />
             <Legend />
             {data.map(({ name }) => (
               <Line
@@ -72,6 +75,11 @@ export const LineChart: FC<LineChartProps> = ({ data }) => {
 };
 
 const Container = styled("div", { height: "1px" });
+
+const toolTipFormatter = (value: number): string => {
+  const formatted = Intl.NumberFormat().format(value);
+  return `${formatted}人`;
+};
 
 const tickFormatter = (value: number): string => String(value / 10_000);
 

@@ -1,44 +1,27 @@
 import axios from "axios";
 import { RESASPopulation, Population } from "@/types";
 
-export const getPopulation = async (
-  prefs: readonly { prefCode: number; prefName: string }[]
-): Promise<Population[]> => {
+export const getPopulation = async (pref: {
+  prefCode: number;
+  prefName: string;
+}): Promise<Population> => {
   const API_KEY = process.env.RESAS_API_KEY;
   if (API_KEY === undefined) throw new Error("API_KEY is undefined.");
 
-  const throttleTime = 250; // RESAS_API allow to throw 5 queries per second at most.
-  const res = Promise.all(
-    await prefs.reduce(
-      (promise, { prefCode, prefName }) =>
-        promise.then((acc) => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve(
-                acc.concat(
-                  fetchPopulation(prefCode, API_KEY).then((data) =>
-                    convertDataToFrontend(prefCode, prefName, data.data)
-                  )
-                )
-              );
-            }, throttleTime);
-          });
-        }),
-      Promise.resolve<Promise<Population>[]>([])
-    )
-  );
+  const { prefCode, prefName } = pref;
 
-  return res;
-};
-
-const fetchPopulation = (prefCode: number, apiKey: string) => {
   const url = `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=${prefCode}`;
-  return axios.get<RESASPopulation>(url, {
-    headers: {
-      "X-API-KEY": apiKey,
-      "Content-Type": "application/json",
-    },
-  });
+  const fetchedData = (
+    await axios.get<RESASPopulation>(url, {
+      headers: {
+        "X-API-KEY": API_KEY,
+        "Content-Type": "application/json",
+      },
+    })
+  ).data;
+
+  const res = convertDataToFrontend(prefCode, prefName, fetchedData);
+  return res;
 };
 
 const convertDataToFrontend = (

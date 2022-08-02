@@ -5,11 +5,11 @@ export const getPopulation = async (pref: {
   prefCode: number;
   prefName: string;
 }): Promise<Population> => {
-  const API_KEY = process.env.RESAS_API_KEY;
+  console.log(process.env);
+  const API_KEY = process.env.NEXT_PUBLIC_RESAS_API_KEY;
   if (API_KEY === undefined) throw new Error("API_KEY is undefined.");
 
   const { prefCode, prefName } = pref;
-
   const url = `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=${prefCode}`;
   const fetchedData = (
     await axios.get<RESASPopulation>(url, {

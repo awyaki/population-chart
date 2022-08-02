@@ -1,30 +1,27 @@
 import type { NextPage, GetStaticProps } from "next";
-import { Prefecture, Population } from "@/types";
+import { Prefecture } from "@/types";
 import { useCheckboxList, useLineChart } from "@/hooks";
-import { getAllPrefectures, getPopulation } from "@/lib";
+import { getAllPrefectures } from "@/lib";
 import { Header, ErrorBoundary, ErrorFallback } from "@/components";
 import { PageLayout } from "@/layouts";
 import { styled } from "@/styles";
 
 type HomePageProps = {
   prefectures: Prefecture[];
-  allPopulation: Population[];
 };
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const prefs = await getAllPrefectures();
-  const allPopulation = await getPopulation(prefs);
   return {
     props: {
       prefectures: prefs,
-      allPopulation: allPopulation,
     },
   };
 };
 
-const Home: NextPage<HomePageProps> = ({ prefectures, allPopulation }) => {
+const Home: NextPage<HomePageProps> = ({ prefectures }) => {
   const [checkedIds, renderCheckboxList] = useCheckboxList(prefectures);
-  const renderLineChart = useLineChart(allPopulation, checkedIds);
+  const renderLineChart = useLineChart(prefectures, checkedIds);
   return (
     <PageLayout>
       <Main>

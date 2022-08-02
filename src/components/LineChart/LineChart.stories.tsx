@@ -1,45 +1,42 @@
-import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
-
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { getAllPrefectures } from "@/lib";
+import { handlers } from "../../../mocks/handlers";
 import { LineChart } from "./";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default {
   title: "LineChart",
   component: LineChart,
+  decorators: [
+    (story) => (
+      <QueryClientProvider client={queryClient}>{story()}</QueryClientProvider>
+    ),
+  ],
 } as ComponentMeta<typeof LineChart>;
 
-export const PopulationOfPrefectures: ComponentStoryObj<typeof LineChart> = {
-  args: {
-    data: [
-      {
-        name: "東京都",
-        points: [
-          { x: 1900, y: 1000000 },
-          { x: 1905, y: 2000000 },
-          { x: 1910, y: 5000000 },
-          { x: 1915, y: 3000000 },
-          { x: 1920, y: 1000000 },
-        ],
+export const Default: ComponentStory<typeof LineChart> = (
+  args,
+  { loaded: { props } }
+) => {
+  const { prefectures } = props;
+  return <LineChart checkedIds={[1, 4, 29]} prefs={prefectures} />;
+};
+
+Default.loaders = [
+  async () => {
+    const prefs = await getAllPrefectures();
+    return {
+      props: {
+        prefectures: prefs,
       },
-      {
-        name: "大阪府",
-        points: [
-          { x: 1900, y: 2000000 },
-          { x: 1905, y: 2000000 },
-          { x: 1910, y: 6000000 },
-          { x: 1915, y: 300000 },
-          { x: 1920, y: 600000 },
-        ],
-      },
-      {
-        name: "兵庫県",
-        points: [
-          { x: 1900, y: 3000000 },
-          { x: 1905, y: 220000 },
-          { x: 1910, y: 650000 },
-          { x: 1915, y: 300000 },
-          { x: 1920, y: 1000000 },
-        ],
-      },
-    ],
+    };
+  },
+];
+
+Default.parameters = {
+  msw: {
+    handlers: [...handlers],
   },
 };

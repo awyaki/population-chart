@@ -1,28 +1,11 @@
-import { useCallback, ComponentProps } from "react";
+import { useCallback } from "react";
 import { LineChart } from "@/components";
-import { Population } from "@/types";
+import { Prefecture } from "@/types";
 
-export const useLineChart = (
-  allPopulation: Population[],
-  checkedIds: number[]
-) => {
+export const useLineChart = (prefs: Prefecture[], checkedIds: number[]) => {
   const renderLineChart = useCallback(
-    () => <LineChart data={convertToLinChart(allPopulation, checkedIds)} />,
-    [allPopulation, checkedIds]
+    () => <LineChart prefs={prefs} checkedIds={checkedIds} />,
+    [checkedIds, prefs]
   );
   return renderLineChart;
-};
-
-const convertToLinChart = (
-  allPopulation: Population[],
-  checkedIds: number[]
-): ComponentProps<typeof LineChart>["data"] => {
-  const filteredData = allPopulation.filter(({ prefCode }) =>
-    checkedIds.includes(prefCode)
-  );
-
-  return filteredData.map(({ prefName, data }) => ({
-    name: prefName,
-    points: data.map(({ year, value }) => ({ x: year, y: value })),
-  }));
 };

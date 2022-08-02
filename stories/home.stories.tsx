@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { handlers } from "../mocks/handlers";
-import { getAllPrefectures, getPopulation } from "@/lib";
+import { getAllPrefectures } from "@/lib";
 import Home from "../src/pages";
 
 export default {
@@ -16,11 +16,9 @@ export const Default: ComponentStory<typeof Home> = (
 Default.loaders = [
   async () => {
     const prefs = await getAllPrefectures();
-    const allPopulation = await getPopulation(prefs);
     return {
       props: {
         prefectures: prefs,
-        allPopulation: allPopulation,
       },
     };
   },

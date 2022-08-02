@@ -5,7 +5,6 @@ export const getPopulation = async (pref: {
   prefCode: number;
   prefName: string;
 }): Promise<Population> => {
-  console.log(process.env);
   const API_KEY = process.env.NEXT_PUBLIC_RESAS_API_KEY;
   if (API_KEY === undefined) throw new Error("API_KEY is undefined.");
 

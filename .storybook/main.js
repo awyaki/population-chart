@@ -27,6 +27,7 @@ module.exports = {
           "@/types": path.resolve(__dirname, "../types"),
           "@/hooks": path.resolve(__dirname, "../src/hooks"),
           "@/layouts": path.resolve(__dirname, "../src/layouts"),
+          "@/mocks/*": path.resolve(__dirname, "../mocks/*"),
         },
       },
     };

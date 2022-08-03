@@ -26,7 +26,8 @@ export const usePopulation = (
   });
 
   const convertedData = useMemo(() => {
-    const data = queries.flatMap(({ data: fetchedData }) => {
+    const data = queries.flatMap(({ data: fetchedData, isError }) => {
+      if (isError) throw new Error("Can't fetch population data.");
       if (fetchedData === undefined) return [];
       return fetchedData;
     });
